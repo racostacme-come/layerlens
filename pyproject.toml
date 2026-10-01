@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "layerlens"
+version = "0.1.0"
+description = "Exponential fitting and honest error measurement for stationary boundary layers"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["numpy>=1.26,<3", "scipy>=1.13,<2", "matplotlib>=3.8,<4"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1", "build>=1,<2", "pypdf>=6,<7"]
+
+[project.scripts]
+layerlens = "layerlens.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --basetemp=.pytest-tmp"
+
+[tool.ruff]
+line-length = 96
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
