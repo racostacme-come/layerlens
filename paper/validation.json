@@ -6,7 +6,7 @@
   "overfull_boxes": 0,
   "undefined_references": 0,
   "inputs_sha256": {
-    "paper/paper.tex": "bb25ff07dbd07936415c135c8969f94537968ddd7d77ea078fae3b09d9e04949",
+    "paper/paper.tex": "c21931d2c466c117018e951b909038fddcd43bed2e9c81a5e1db179563a0adda",
     "paper/numbers.tex": "68640890dbd95e8cb590d8447d08ab22529fc684bf73992c2581c09da15c2bf3",
     "paper/build.py": "916dbb6db90b87923bc88ed3f9e5cb7300a87e08527c31dbc38da78e5907dfbf",
     "src/layerlens/__init__.py": "337c5c8f3f05c924deaf9ff7d9c5c059b517b0d95e5e943c47553c4107935acb",
