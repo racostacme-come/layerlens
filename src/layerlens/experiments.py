@@ -11,6 +11,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.ticker import NullFormatter, ScalarFormatter
 from numpy.polynomial.legendre import leggauss
 
 from .solver import layer_profile, solve
@@ -178,6 +179,9 @@ def run(output):
     )
     axes[1].legend(fontsize=8)
     for ax in axes:
+        ax.set_xticks([20, 40, 80, 160, 320])
+        ax.xaxis.set_major_formatter(ScalarFormatter())
+        ax.xaxis.set_minor_formatter(NullFormatter())
         ax.grid(True, which="both", alpha=0.2)
     fig.savefig(output / "convergence.png")
     plt.close(fig)
