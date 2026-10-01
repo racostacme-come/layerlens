@@ -11,6 +11,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.ticker import NullFormatter, ScalarFormatter
 from numpy.polynomial.legendre import leggauss
 
 from .solver import layer_profile, solve
@@ -107,10 +108,10 @@ def run(output):
         "manufactured_final_order": mms_order,
         "quadrature_32_to_64_difference": check,
     }
-    (output / "metrics.json").write_text(json.dumps(metrics, indent=2) + "\n")
+    (output / "metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", newline="\n")
     for name, rows in (("layer", layer_rows), ("manufactured", manufactured_rows)):
         with (output / f"{name}.csv").open("w", newline="") as stream:
-            writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+            writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n")
             writer.writeheader()
             writer.writerows(rows)
     q = np.linspace(0.7, 1, 1001)
@@ -178,6 +179,9 @@ def run(output):
     )
     axes[1].legend(fontsize=8)
     for ax in axes:
+        ax.set_xticks([20, 40, 80, 160, 320])
+        ax.xaxis.set_major_formatter(ScalarFormatter())
+        ax.xaxis.set_minor_formatter(NullFormatter())
         ax.grid(True, which="both", alpha=0.2)
     fig.savefig(output / "convergence.png")
     plt.close(fig)
@@ -186,5 +190,7 @@ def run(output):
         "platform": platform.platform(),
         "packages": {p: version(p) for p in ("numpy", "scipy", "matplotlib")},
     }
-    (output / "environment.json").write_text(json.dumps(provenance, indent=2) + "\n")
+    (output / "environment.json").write_text(
+        json.dumps(provenance, indent=2) + "\n", newline="\n"
+    )
     return metrics

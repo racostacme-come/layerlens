@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "pages": 4,
+  "page_limit": 5,
+  "engine": "tectonic",
+  "overfull_boxes": 0,
+  "undefined_references": 0,
+  "inputs_sha256": {
+    "paper/paper.tex": "c21931d2c466c117018e951b909038fddcd43bed2e9c81a5e1db179563a0adda",
+    "paper/numbers.tex": "68640890dbd95e8cb590d8447d08ab22529fc684bf73992c2581c09da15c2bf3",
+    "paper/build.py": "916dbb6db90b87923bc88ed3f9e5cb7300a87e08527c31dbc38da78e5907dfbf",
+    "src/layerlens/__init__.py": "337c5c8f3f05c924deaf9ff7d9c5c059b517b0d95e5e943c47553c4107935acb",
+    "src/layerlens/cli.py": "762bd820d14763992ebfbdd04da6ce9f0a257c195e2c0380ff192b4db4fafa6d",
+    "src/layerlens/experiments.py": "0a3bf1e2e0c720d05724b70edc16d135516d529b80aec629b87b02ce3087386b",
+    "src/layerlens/solver.py": "8dbfcae09d12c441feb0cca58c44690cfbd6c87bac708233687f389a317ca2db",
+    "examples/results/boundary_layer.png": "24f5e289bf8001c9178f3cb51f42ac78d734769944f50b55aa65a22f162f4b8c",
+    "examples/results/convergence.png": "2f25549b20dac9abf93d8c7dc9299abeda8509faa20e1b6409ec0221d996fb86",
+    "examples/results/environment.json": "6655688a0c63a6c1889a9b225a10745cf5a3448b5a9ed9d3df3e199b11420974",
+    "examples/results/layer.csv": "ce65ffd1e8d5ca3c936a003e3db611401f6a4cbbf6d0f26d05d42a32119a0f47",
+    "examples/results/manufactured.csv": "ed981479072c5d6116750a9c83c83bb03ba85f2d0b1cdce75b3e655e67d6bb12",
+    "examples/results/metrics.json": "7d8ee5e310bd5e22885732e82f95b899b090d92f5743e4b65d3e6c48f47fc2f0"
+  }
+}

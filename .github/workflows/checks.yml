@@ -1,0 +1,54 @@
+name: Verify implementation and manuscript
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  numerical:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            python: '3.11'
+          - os: windows-latest
+            python: '3.14'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: python -m pytest -q
+      - run: python scripts/check_samples.py
+      - run: python scripts/check_manifest.py
+      - run: python -m build
+      - name: Install and test the built wheel
+        shell: bash
+        run: |
+          python -m pip uninstall -y layerlens
+          python -m pip install --no-deps dist/*.whl
+          python -m pytest -q
+          layerlens solve --peclet -100 --output output/wheel-profile.csv
+  paper:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e ".[dev]"
+      - run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-fonts-recommended poppler-utils
+      - run: python scripts/check_samples.py
+      - run: python scripts/check_manifest.py
+      - run: python paper/build.py --engine pdflatex
+      - run: pdftoppm -scale-to 1600 -png paper/paper.pdf paper/build/page
+      - uses: actions/upload-artifact@v7.0.1
+        with:
+          name: verified-paper
+          path: |
+            paper/paper.pdf
+            paper/validation.json
+            paper/build/page-*.png
+            paper/build/paper.log
