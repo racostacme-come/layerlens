@@ -113,7 +113,7 @@ def main():
         },
     }
     shutil.copyfile(pdf, folder / "paper.pdf")
-    (folder / "validation.json").write_text(json.dumps(report, indent=2) + "\n")
+    (folder / "validation.json").write_text(json.dumps(report, indent=2) + "\n", newline="\n")
     print(f"Compiled {len(reader.pages)} pages; no overfull boxes or undefined references.")
 
 

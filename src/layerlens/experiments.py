@@ -108,10 +108,10 @@ def run(output):
         "manufactured_final_order": mms_order,
         "quadrature_32_to_64_difference": check,
     }
-    (output / "metrics.json").write_text(json.dumps(metrics, indent=2) + "\n")
+    (output / "metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", newline="\n")
     for name, rows in (("layer", layer_rows), ("manufactured", manufactured_rows)):
         with (output / f"{name}.csv").open("w", newline="") as stream:
-            writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+            writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n")
             writer.writeheader()
             writer.writerows(rows)
     q = np.linspace(0.7, 1, 1001)
@@ -190,5 +190,7 @@ def run(output):
         "platform": platform.platform(),
         "packages": {p: version(p) for p in ("numpy", "scipy", "matplotlib")},
     }
-    (output / "environment.json").write_text(json.dumps(provenance, indent=2) + "\n")
+    (output / "environment.json").write_text(
+        json.dumps(provenance, indent=2) + "\n", newline="\n"
+    )
     return metrics
